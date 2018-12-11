@@ -4,12 +4,13 @@ MAINTAINER Matteo Capitanio <matteo.capitanio@gmail.com>
 
 USER root
 
-ADD cloudera-impala-kudu.repo /etc/yum.repos.d/
-ADD cloudera-cdh5.repo /etc/yum.repos.d/
+#ADD cloudera-impala-kudu.repo /etc/yum.repos.d/
+#ADD cloudera-cdh5.repo /etc/yum.repos.d/
+RUN wget https://archive.cloudera.com/cdh5/redhat/7/x86_64/cdh/cloudera-cdh5.repo -P /etc/yum.repos.d/
 
-RUN rpm --import http://archive.cloudera.com/beta/impala-kudu/redhat/7/x86_64/impala-kudu/RPM-GPG-KEY-cloudera \
+RUN rpm --import https://archive.cloudera.com/cdh5/redhat/7/x86_64/cdh/RPM-GPG-KEY-cloudera \
     && yum install -y hadoop-libhdfs \
-    && yum install -y impala-kudu impala-kudu-server impala-kudu-shell impala-kudu-catalog impala-kudu-state-store \
+    && yum install -y impala-server impala-shell impala-catalog impala-state-store \
     && yum clean all \
     && rm -rf /var/cache/yum
 
